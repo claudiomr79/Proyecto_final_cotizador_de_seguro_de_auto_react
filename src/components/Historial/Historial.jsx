@@ -8,7 +8,6 @@ export const Historial = () => {
         <>
             {data ? (
                 <>
-                    <h2>Historial</h2>
                     <table>
                         <thead>
                             <tr>

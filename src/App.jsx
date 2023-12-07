@@ -5,18 +5,27 @@ import FormularioCotizacion from './components/FormularioCotizacion/FormularioCo
 import Cotizacion from './components/Cotizacion/Cotizacion'
 import { Historial } from './components/Historial/Historial'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import React, { createContext, useState } from 'react'
+
+//crear contexto
+export const CotizacionContext = createContext();
 
 function App() {
+  const [marca, setMarca] = useState("");
+  const [modelo, setModelo] = useState("");
+  const [anio, setAnio] = useState("");
 
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route exact path='/' element={<FormularioCotizacion />} />
-        <Route path='/historial' element={<Historial />} />
-      </Routes>
-      <Footer /> 
-    </BrowserRouter>
+    <CotizacionContext.Provider value={{marca, setMarca, modelo, setModelo, anio, setAnio}}>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route exact path='/' element={<FormularioCotizacion />} />
+          <Route path='/historial' element={<Historial />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </CotizacionContext.Provider>
   )
 }
 

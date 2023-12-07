@@ -4,15 +4,13 @@
     padding: 0;
 }
 #cotizacion {
-    width: 50%;
-    margin: auto;
-    margin-bottom: 20px;
+    width: 30%;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;    
+    justify-content: flex-end;    
 }
-h2 {
+/* h2 {
     margin-bottom: 20px;
-}
+} */

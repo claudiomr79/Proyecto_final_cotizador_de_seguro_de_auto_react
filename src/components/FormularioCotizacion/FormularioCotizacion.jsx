@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useContext, useState , useEffect} from "react";
 import "./FormularioCotizacion.css";
 import Select from "react-select";
 import Cotizacion from "../Cotizacion/Cotizacion";
-import { useEffect } from "react";
+import { CotizacionContext } from "../../App";
 
 const FormularioCotizacion = () => {
   const autos = [
@@ -44,10 +44,8 @@ const FormularioCotizacion = () => {
     { value: "2022", label: "2022", factor: 1.3 },
     { value: "2023", label: "2023", factor: 1.4 },
   ];
-
-  const [marca, setMarca] = useState("");
-  const [modelo, setModelo] = useState("");
-  const [anio, setAnio] = useState("");
+//usar el contexto
+  const { marca, setMarca, modelo, setModelo, anio, setAnio } = useContext(CotizacionContext);
   const [cotizacion, setCotizacion] = useState(false);
   const [valorSeleccionadoMarca, setValorSeleccionadoMarca] = useState(null);
   const [valorSeleccionadoModelo, setValorSeleccionadoModelo] = useState(null);
@@ -123,14 +121,13 @@ const FormularioCotizacion = () => {
             {modelo ? <Select className="select" options={anios} onChange={handleChangeAnio} value={valorSeleccionadoAnio} /> :
               <Select className="select" isDisabled onChange={handleChangeAnio} value={null} />}
           </label>
-          <button type="submit" onClick={handleSubmit}>Cotizar</button>
-          <button type="reset" onClick={handleReset}>Limpiar</button>
+          <div id="containerBotones">
+            <button type="submit" onClick={handleSubmit}>Cotizar</button>
+            <button type="reset" onClick={handleReset}>Limpiar</button>
+          </div>
         </form>
         {mostrarCotizacion && (
           <Cotizacion
-            marca={marca}
-            modelo={modelo}
-            anio={anio}
             factorModelo={factorModelo}
             factorAnio={factorAnio}
           />
