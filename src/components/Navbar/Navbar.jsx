@@ -1,6 +1,7 @@
 import React from 'react';
 import './Navbar.css';
 import logo from '../../assets/img/seguro.png';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     return (
@@ -11,9 +12,8 @@ const Navbar = () => {
             </div>
             <nav>
                 <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Cotizar</a></li>
-                    <li><a href="#">Historial</a></li>
+                    <li><Link to={`/`}>Inicio </Link>    </li>
+                    <li><Link to={`/historial`}>Historial</Link></li>
                 </ul>
             </nav>
         </header>

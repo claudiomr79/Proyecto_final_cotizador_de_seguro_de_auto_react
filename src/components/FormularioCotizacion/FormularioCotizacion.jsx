@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./FormularioCotizacion.css";
 import Select from "react-select";
 import Cotizacion from "../Cotizacion/Cotizacion";
+import { useEffect } from "react";
 
 const FormularioCotizacion = () => {
   const autos = [
@@ -48,23 +49,51 @@ const FormularioCotizacion = () => {
   const [modelo, setModelo] = useState("");
   const [anio, setAnio] = useState("");
   const [cotizacion, setCotizacion] = useState(false);
+  const [valorSeleccionadoMarca, setValorSeleccionadoMarca] = useState(null);
+  const [valorSeleccionadoModelo, setValorSeleccionadoModelo] = useState(null);
+  const [valorSeleccionadoAnio, setValorSeleccionadoAnio] = useState(null);
+  const [mostrarCotizacion, setmostrarCotizacion] = useState(false);
+
+  useEffect(() => {
+    if (cotizacion && marca && modelo && anio) {
+      setmostrarCotizacion(true);
+    }
+
+  }, [cotizacion]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!marca || !modelo || !anio) {
+      alert("complete todos los campos");
+      return;
+    }
     setCotizacion(true);
-    console.log({ marca, modelo, anio });
+    console.log(cotizacion);
   };
-
+  const handleReset = (e) => {
+    e.preventDefault();
+    setMarca("");
+    setModelo("");
+    setAnio("");
+    setCotizacion(false);
+    setmostrarCotizacion(false);
+    setValorSeleccionadoMarca(null);
+    setValorSeleccionadoModelo(null);
+    setValorSeleccionadoAnio(null);
+  };
   const handleChangeMarca = (selectedOption) => {
     setMarca(selectedOption.value);
+    setValorSeleccionadoMarca(selectedOption);
   };
 
   const handleChangeModelo = (selectedOption) => {
     setModelo(selectedOption.value);
+    setValorSeleccionadoModelo(selectedOption);
   };
 
   const handleChangeAnio = (selectedOption) => {
     setAnio(selectedOption.value);
+    setValorSeleccionadoAnio(selectedOption);
   };
 
   const modelos = autos.find((auto) => auto.value === marca)?.modelos;
@@ -73,34 +102,40 @@ const FormularioCotizacion = () => {
 
   return (
     <>
-      <form className="formulario" onSubmit={handleSubmit}>
-        <label>
-          Marca:
-          <Select className="select"
-            options={autos}
-            onChange={handleChangeMarca}
-            autoFocus={true}
+      <div id="formularioCotizacion">
+        <form className="formulario">
+          <label>
+            Marca:
+            <Select className="select"
+              options={autos}
+              onChange={handleChangeMarca}
+              autoFocus={true}
+              value={valorSeleccionadoMarca}
+            />
+          </label>
+          <label>
+            Modelo:
+            {marca ? <Select className="select" options={modelos} onChange={handleChangeModelo} value={valorSeleccionadoModelo} /> :
+              <Select className="select" isDisabled onChange={handleChangeModelo} value={null} />}
+          </label>
+          <label>
+            Año:
+            {modelo ? <Select className="select" options={anios} onChange={handleChangeAnio} value={valorSeleccionadoAnio} /> :
+              <Select className="select" isDisabled onChange={handleChangeAnio} value={null} />}
+          </label>
+          <button type="submit" onClick={handleSubmit}>Cotizar</button>
+          <button type="reset" onClick={handleReset}>Limpiar</button>
+        </form>
+        {mostrarCotizacion && (
+          <Cotizacion
+            marca={marca}
+            modelo={modelo}
+            anio={anio}
+            factorModelo={factorModelo}
+            factorAnio={factorAnio}
           />
-        </label>
-        <label>
-          Modelo:
-          <Select className="select" options={modelos} onChange={handleChangeModelo} />
-        </label>
-        <label>
-          Año:
-          <Select className="select" options={anios} onChange={handleChangeAnio} />
-        </label>
-        <button type="submit">Cotizar</button>
-      </form>
-      {marca && modelo && anio && cotizacion && (
-        <Cotizacion
-          marca={marca}
-          modelo={modelo}
-          anio={anio}
-          factorModelo={factorModelo}
-          factorAnio={factorAnio}
-        />
-      )}
+        )}
+      </div>
     </>
   );
 };

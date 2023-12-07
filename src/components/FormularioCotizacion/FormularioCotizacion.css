@@ -3,14 +3,17 @@
     margin: 0;
     padding: 0;
 }
+#formularioCotizacion{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;    
+    flex-wrap: wrap;
+}
 .formulario{
-    width: 80%;
-    margin: auto;
+    width: 50%;
     margin-top: 5px;
     margin-bottom: 5px;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
     display: flex;
     flex-direction: column;
     align-items: center;
