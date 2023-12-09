@@ -3,11 +3,10 @@ import './Historial.css'
 
 export const Historial = () => {
     const data = JSON.parse(localStorage.getItem('historial'));
-    console.log(data);
     return (
         <>
             {data ? (
-                <>
+                <main>
                     <table>
                         <thead>
                             <tr>
@@ -26,7 +25,7 @@ export const Historial = () => {
                             ))}
                         </tbody>
                     </table>
-                </>
+                </main>
             ) : <h2>No hay datos en el historial</h2>}
         </>
     )

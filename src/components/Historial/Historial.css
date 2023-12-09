@@ -1,8 +1,7 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+body{
+    height: 100vh;
+}	
+
 h2{
     text-align: center;
     margin: 20px;
@@ -12,6 +11,7 @@ h2{
 table{
     width: 80%;
     border-collapse: collapse;
+    border-radius: 5%;
     margin: 0 auto;
     font-size: 1.2rem;
     font-family: 'Roboto', sans-serif;
@@ -31,5 +31,4 @@ th{
     padding: 0.5rem;
     text-align: center;
     margin: 0 auto;
-    margin-bottom: 100px;
 }

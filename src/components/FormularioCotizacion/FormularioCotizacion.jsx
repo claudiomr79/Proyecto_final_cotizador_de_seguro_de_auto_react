@@ -56,6 +56,13 @@ const FormularioCotizacion = () => {
     if (cotizacion && marca && modelo && anio) {
       setmostrarCotizacion(true);
     }
+    //para el caso que vuleve de historial y hubiese quedado un valor en el formulario
+    if ((marca || modelo || anio) && (!cotizacion)) {
+      setMarca("");
+      setModelo("");
+      setAnio("");
+      
+    }
 
   }, [cotizacion]);
 
@@ -66,7 +73,10 @@ const FormularioCotizacion = () => {
       return;
     }
     setCotizacion(true);
-    console.log(cotizacion);
+    setmostrarCotizacion(false);
+    setValorSeleccionadoMarca(null);
+    setValorSeleccionadoModelo(null);
+    setValorSeleccionadoAnio(null);
   };
   const handleReset = (e) => {
     e.preventDefault();
@@ -100,7 +110,8 @@ const FormularioCotizacion = () => {
 
   return (
     <>
-      <div id="formularioCotizacion">
+      <main id="formularioCotizacion">
+        <div>
         <form className="formulario">
           <label>
             Marca:
@@ -126,13 +137,14 @@ const FormularioCotizacion = () => {
             <button type="reset" onClick={handleReset}>Limpiar</button>
           </div>
         </form>
+        </div>
         {mostrarCotizacion && (
           <Cotizacion
             factorModelo={factorModelo}
             factorAnio={factorAnio}
           />
         )}
-      </div>
+      </main>
     </>
   );
 };
