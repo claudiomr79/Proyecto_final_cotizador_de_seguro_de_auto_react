@@ -18,8 +18,8 @@ export const Historial = () => {
                         <tbody>
                             {data.map((item, index) => (
                                 <tr key={index}>
-                                    <td>{item[0]}</td>
-                                    <td>{item[1]}</td>
+                                    <td>{item[0].toUpperCase()}</td>
+                                    <td>{item[1].toUpperCase()}</td>
                                     <td>{item[2]}</td>
                                 </tr>
                             ))}
