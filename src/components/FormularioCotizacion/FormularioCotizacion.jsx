@@ -1,4 +1,4 @@
-import { useContext, useState , useEffect} from "react";
+import { useContext, useState, useEffect } from "react";
 import "./FormularioCotizacion.css";
 import Select from "react-select";
 import Cotizacion from "../Cotizacion/Cotizacion";
@@ -38,14 +38,17 @@ const FormularioCotizacion = () => {
   ];
 
   const anios = [
+    { value: "2017", label: "2017", factor: 1 },
+    { value: "2018", label: "2018", factor: 1 },
     { value: "2019", label: "2019", factor: 1 },
     { value: "2020", label: "2020", factor: 1.1 },
     { value: "2021", label: "2021", factor: 1.2 },
     { value: "2022", label: "2022", factor: 1.3 },
     { value: "2023", label: "2023", factor: 1.4 },
   ];
-//usar el contexto
-  const { marca, setMarca, modelo, setModelo, anio, setAnio } = useContext(CotizacionContext);
+  //usar el contexto
+  const { marca, setMarca, modelo, setModelo, anio, setAnio } =
+    useContext(CotizacionContext);
   const [cotizacion, setCotizacion] = useState(false);
   const [valorSeleccionadoMarca, setValorSeleccionadoMarca] = useState(null);
   const [valorSeleccionadoModelo, setValorSeleccionadoModelo] = useState(null);
@@ -57,13 +60,11 @@ const FormularioCotizacion = () => {
       setmostrarCotizacion(true);
     }
     //para el caso que vuleve de historial y hubiese quedado un valor en el formulario
-    if ((marca || modelo || anio) && (!cotizacion)) {
+    if ((marca || modelo || anio) && !cotizacion) {
       setMarca("");
       setModelo("");
       setAnio("");
-      
     }
-
   }, [cotizacion]);
 
   const handleSubmit = (e) => {
@@ -112,37 +113,65 @@ const FormularioCotizacion = () => {
     <>
       <main id="formularioCotizacion">
         <div>
-        <form className="formulario">
-          <label>
-            Marca:
-            <Select className="select"
-              options={autos}
-              onChange={handleChangeMarca}
-              autoFocus={true}
-              value={valorSeleccionadoMarca}
-            />
-          </label>
-          <label>
-            Modelo:
-            {marca ? <Select className="select" options={modelos} onChange={handleChangeModelo} value={valorSeleccionadoModelo} /> :
-              <Select className="select" isDisabled onChange={handleChangeModelo} value={null} />}
-          </label>
-          <label>
-            Año:
-            {modelo ? <Select className="select" options={anios} onChange={handleChangeAnio} value={valorSeleccionadoAnio} /> :
-              <Select className="select" isDisabled onChange={handleChangeAnio} value={null} />}
-          </label>
-          <div id="containerBotones">
-            <button type="submit" onClick={handleSubmit}>Cotizar</button>
-            <button type="reset" onClick={handleReset}>Limpiar</button>
-          </div>
-        </form>
+          <form className="formulario">
+            <label>
+              Marca:
+              <Select
+                className="select"
+                options={autos}
+                onChange={handleChangeMarca}
+                autoFocus={true}
+                value={valorSeleccionadoMarca}
+              />
+            </label>
+            <label>
+              Modelo:
+              {marca ? (
+                <Select
+                  className="select"
+                  options={modelos}
+                  onChange={handleChangeModelo}
+                  value={valorSeleccionadoModelo}
+                />
+              ) : (
+                <Select
+                  className="select"
+                  isDisabled
+                  onChange={handleChangeModelo}
+                  value={null}
+                />
+              )}
+            </label>
+            <label>
+              Año:
+              {modelo ? (
+                <Select
+                  className="select"
+                  options={anios}
+                  onChange={handleChangeAnio}
+                  value={valorSeleccionadoAnio}
+                />
+              ) : (
+                <Select
+                  className="select"
+                  isDisabled
+                  onChange={handleChangeAnio}
+                  value={null}
+                />
+              )}
+            </label>
+            <div id="containerBotones">
+              <button type="submit" onClick={handleSubmit}>
+                Cotizar
+              </button>
+              <button type="reset" onClick={handleReset}>
+                Limpiar
+              </button>
+            </div>
+          </form>
         </div>
         {mostrarCotizacion && (
-          <Cotizacion
-            factorModelo={factorModelo}
-            factorAnio={factorAnio}
-          />
+          <Cotizacion factorModelo={factorModelo} factorAnio={factorAnio} />
         )}
       </main>
     </>
